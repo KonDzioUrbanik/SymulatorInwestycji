@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.pans.konrad.apka.ui.MainController"
+            prefWidth="800" prefHeight="600">
+
+    <!-- Nagłówek z informacją o trybie -->
+    <Label fx:id="modeLabel"
+           text="Tryb: ---"
+           layoutX="10" layoutY="10"
+           styleClass="header-label"/>
+
+    <!-- Przycisk zmiany trybu -->
+    <Button text="Zmień tryb"
+            fx:id="changeModeButton"
+            onAction="#handleChangeMode"
+            layoutX="680" layoutY="10"
+            prefWidth="100"/>
+
+    <!-- Sekcja: Wybór aktywa i otwarcie osobnego okna -->
+    <Label text="Wybierz aktywo:"
+           layoutX="10" layoutY="40"/>
+    <ComboBox fx:id="assetComboBox"
+              layoutX="10" layoutY="60"
+              prefWidth="180"/>
+    <Button text="Otwórz okno"
+            fx:id="openAssetWindowButton"
+            onAction="#handleOpenAssetWindow"
+            layoutX="200" layoutY="60"
+            prefWidth="100"/>
+
+    <!-- Sekcja: Ręczna transakcja (ilość + Kup/Sprzedaj) -->
+    <Label text="Ilość do ręcznej transakcji:"
+           layoutX="10" layoutY="100"/>
+    <TextField fx:id="manualQuantityField"
+               promptText="Liczba sztuk"
+               layoutX="10" layoutY="120"
+               prefWidth="250"/>
+
+    <Button text="Kup"
+            fx:id="buyButton"
+            onAction="#handleBuy"
+            layoutX="10" layoutY="160"
+            prefWidth="70"/>
+    <Button text="Sprzedaj"
+            fx:id="sellButton"
+            onAction="#handleSell"
+            layoutX="90" layoutY="160"
+            prefWidth="70"/>
+
+    <!-- Sekcja: Cash -->
+    <Label fx:id="cashLabel"
+           text="Cash: $0.00"
+           layoutX="10" layoutY="200"
+           styleClass="cash-label"/>
+
+    <!-- Sekcja: Autotrader (progi kupna/sprzedaży) -->
+    <Label text="AUTOTRADER (progi):"
+           layoutX="10" layoutY="230"/>
+
+    <Label text="Kup ≤"
+           layoutX="10" layoutY="260"/>
+    <TextField fx:id="buyThresholdField"
+               promptText="próg kupna"
+               layoutX="50" layoutY="255"
+               prefWidth="60"/>
+
+    <Label text="Sprzedaj ≥"
+           layoutX="120" layoutY="260"/>
+    <TextField fx:id="sellThresholdField"
+               promptText="próg sprzedaży"
+               layoutX="190" layoutY="255"
+               prefWidth="60"/>
+
+    <Button text="Ustaw"
+            fx:id="setThresholdsButton"
+            onAction="#handleSetAutoTrader"
+            layoutX="260" layoutY="255"
+            prefWidth="60"/>
+
+    <Label fx:id="noThresholdsLabel"
+           text="Brak progów"
+           layoutX="10" layoutY="290"/>
+
+    <!-- Prawy panel: tabela portfela -->
+    <Pane layoutX="320" layoutY="40" prefWidth="470" prefHeight="240">
+        <children>
+            <TableView fx:id="portfolioTable"
+                       prefWidth="470" prefHeight="240">
+                <columns>
+                    <TableColumn fx:id="assetNameColumn"
+                                 text="Aktywo"
+                                 prefWidth="200">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="assetName"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="quantityColumn"
+                                 text="Ilość"
+                                 prefWidth="120">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="quantity"/>
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="averagePriceColumn"
+                                 text="Aktualna cena"
+                                 prefWidth="150"/>
+                </columns>
+            </TableView>
+        </children>
+    </Pane>
+
+    <!-- Wykres cen zajmujący całą szerokość na dole -->
+    <LineChart fx:id="priceHistoryChart"
+               AnchorPane.leftAnchor="10"
+               AnchorPane.rightAnchor="10"
+               AnchorPane.bottomAnchor="10"
+               prefHeight="200">
+        <xAxis>
+            <CategoryAxis label="Czas"/>
+        </xAxis>
+        <yAxis>
+            <NumberAxis fx:id="yAxis" label="Cena"/>
+        </yAxis>
+    </LineChart>
+
+</AnchorPane>

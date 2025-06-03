@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+
+<GridPane fx:controller="com.pans.konrad.apka.ui.AssetController"
+          xmlns="http://javafx.com/javafx"
+          xmlns:fx="http://javafx.com/fxml"
+          hgap="10" vgap="10">
+    <padding>
+        <Insets top="15" right="15" bottom="15" left="15"/>
+    </padding>
+
+    <!-- Wiersz 0: nazwa aktywa i cash -->
+    <Label text="Aktywo:" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+    <Label fx:id="assetNameLabel" text="---" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+    <Label text="Cash:" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+    <Label fx:id="assetCashLabel" text="\$0.00" GridPane.columnIndex="3" GridPane.rowIndex="0"/>
+
+    <!-- Wiersz 1: wykres -->
+    <LineChart fx:id="assetChart"
+               GridPane.columnIndex="0"
+               GridPane.rowIndex="1"
+               GridPane.columnSpan="4"
+               prefWidth="450"
+               prefHeight="250">
+        <xAxis>
+            <CategoryAxis label="Czas"/>
+        </xAxis>
+        <yAxis>
+            <NumberAxis fx:id="assetYaxis" label="Cena"/>
+        </yAxis>
+    </LineChart>
+
+    <!-- Wiersz 2: pole ilości + przyciski Kup/Sprzedaj -->
+    <Label text="Ilość:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+    <TextField fx:id="assetQuantityField" promptText="Liczba sztuk" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+    <HBox spacing="10" GridPane.columnIndex="2" GridPane.rowIndex="2" GridPane.columnSpan="2">
+        <Button fx:id="assetBuyButton" text="Kup" onAction="#handleAssetBuy"/>
+        <Button fx:id="assetSellButton" text="Sprzedaj" onAction="#handleAssetSell"/>
+    </HBox>
+</GridPane>
